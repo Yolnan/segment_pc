@@ -1,0 +1,3 @@
+<launch>
+    <node name="segment_pcl_node" pkg="segment_pointcloud" type="segment_pcl_node" />
+</launch>
