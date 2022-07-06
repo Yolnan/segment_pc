@@ -14,6 +14,7 @@ import numpy as np
 import threading
 import copy
 from skimage.filters import threshold_otsu
+from segment_pcl_node.msg import obj_pointcloud
 
 
 class pcl_node_handler:
@@ -27,7 +28,7 @@ class pcl_node_handler:
       self.has_roi = False
       self.image_topic = depth_image_topic
       self.cam_info_sub = rospy.Subscriber(cam_info_topic, CameraInfo, self.cb_camera_info)
-      self.pub = rospy.Publisher("segmented_pcl", PointCloud2, queue_size=1)
+      self.pub = rospy.Publisher("segmented_pcl", obj_pointcloud, queue_size=1)
       self.class_list = ["person", "chair", "tvmonitor", "bottle", "cell phone"]
       self.depth_acquired = False
       # bgr colors
@@ -148,8 +149,11 @@ class pcl_node_handler:
                     PointField('z', 8, PointField.FLOAT32, 1),
                     PointField('rgb', 12, PointField.UINT32, 1)]
           pc2 = point_cloud2.create_cloud(header, fields, points)
+          obj_pcl = obj_pointcloud()
+          obj_pcl.pcl = pc2
+          obj_pcl.label = box.Class
           
-          self.pub.publish(pc2)
+          self.pub.publish(obj_pcl)
       
       self.roi = BoundingBoxes()
       self.has_roi = False
