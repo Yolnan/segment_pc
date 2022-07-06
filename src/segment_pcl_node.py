@@ -14,7 +14,7 @@ import numpy as np
 import threading
 import copy
 from skimage.filters import threshold_otsu
-from segment_pcl_node.msg import obj_pointcloud
+from segment_pointcloud.msg import obj_pointcloud
 
 
 class pcl_node_handler:
