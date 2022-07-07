@@ -152,6 +152,7 @@ class pcl_node_handler:
           obj_pcl = obj_pointcloud()
           obj_pcl.pcl = pc2
           obj_pcl.label = box.Class
+          obj_pcl.probability = box.probability
           
           self.pub.publish(obj_pcl)
       
