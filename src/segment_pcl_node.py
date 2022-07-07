@@ -153,6 +153,8 @@ class pcl_node_handler:
           obj_pcl.pcl = pc2
           obj_pcl.label = box.Class
           obj_pcl.probability = box.probability
+          obj_pcl.y_size = abs(box.ymax - box.ymin)
+          obj_pcl.x_size = abs(box.xmax - box.xmin)
           
           self.pub.publish(obj_pcl)
       
