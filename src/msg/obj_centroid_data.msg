@@ -1,4 +1,4 @@
-std_msgs/header header
+std_msgs/Header header
 geometry_msgs/Point centroid
 string label
 float32 probability
