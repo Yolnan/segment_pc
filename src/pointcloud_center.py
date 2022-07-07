@@ -2,7 +2,7 @@
 # Import the necessary libraries
 import rospy # Python library for ROS
 from geometry_msgs.msg import PointStamped as ps
-from pointcloud_center.msg import obj_centroid_data, obj_pointcloud
+from segment_pointcloud.msg import obj_centroid_data, obj_pointcloud
 import ros_numpy
 import numpy as np
 
