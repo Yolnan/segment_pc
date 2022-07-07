@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   obj_pointcloud.msg
+  obj_centroid_data.msg
 )
 
 generate_messages(
