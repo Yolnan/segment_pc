@@ -28,11 +28,14 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
-# catkin_package()
+#atkin_package()
 
-# catkin_install_python(PROGRAMS src/segment_pcl_node.py
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+catkin_install_python(PROGRAMS 
+  src/segment_pcl_node.py
+  src/pointcloud_center.py
+  src/mocap_transform.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
