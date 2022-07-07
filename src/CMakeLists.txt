@@ -16,6 +16,7 @@ add_message_files(
   FILES
   obj_pointcloud.msg
   obj_centroid_data.msg
+  obj_centroid_list.msg
 )
 
 generate_messages(
@@ -36,6 +37,7 @@ catkin_install_python(PROGRAMS
   src/segment_pcl_node.py
   src/pointcloud_center.py
   src/mocap_transform.py
+  src/obj_list.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
