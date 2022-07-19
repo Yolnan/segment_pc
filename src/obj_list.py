@@ -10,6 +10,7 @@ class obj_list():
 
 
     def callback(self, data):
+        print(data)
         if data not in self.obj_seen:
             self.obj_seen.add(data)
         
