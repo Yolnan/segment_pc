@@ -19,9 +19,9 @@ def callback(data):
     if not rospy.is_shutdown():
       out.header.stamp = rospy.Time.now()
       out.header.frame_id = "theia/front_camera_aligned_depth_to_color_frame"
-      out.centroid.x = xyz_mean[0]
-      out.centroid.y = xyz_mean[1]
-      out.centroid.z = xyz_mean[2]
+      out.centroid.point.x = xyz_mean[0]
+      out.centroid.point.y = xyz_mean[1]
+      out.centroid.point.z = xyz_mean[2]
       out.label = data.label
       out.probability = data.probability
       out.x_size = data.x_size
