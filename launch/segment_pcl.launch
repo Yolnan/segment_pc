@@ -1,5 +1,8 @@
 <launch>
     <include file="$(find darknet_ros)/launch/yolo_v3.launch"/>
+    <group ns="prm">
+        <rosparam file="$(find segment_pointcloud)/config/pcl_launch_params.yaml" />
+    <group>
     <node name="segment_pcl_node" pkg="segment_pointcloud" type="segment_pcl_node.py" />
     <node name="pointcloud_center" pkg="segment_pointcloud" type="pointcloud_center.py"/>
 

@@ -163,9 +163,9 @@ class pcl_node_handler:
   
 if __name__ == '__main__':
   rospy.init_node("segment_pcl_node")
-  roi_topic_name = "/darknet_ros/bounding_boxes"
-  depth_image_topic_name = "/theia/front_camera/aligned_depth_to_color/image_raw"
-  cam_info_topic_name = "/theia/front_camera/aligned_depth_to_color/camera_info"
+  roi_topic_name = rospy.get_param("/prm/roi_topic_name")
+  depth_image_topic_name = rospy.get_param("/prm/depth_image_topic_name")
+  cam_info_topic_name = rospy.get_param("/prm/cam_info_topic_name")
   pub = pcl_node_handler(roi_topic_name, depth_image_topic_name, cam_info_topic_name)
   rate = rospy.Rate(10)
   
