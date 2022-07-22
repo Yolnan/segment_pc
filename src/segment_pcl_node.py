@@ -153,8 +153,8 @@ class pcl_node_handler:
           obj_pcl.pcl = pc2
           obj_pcl.label = box.Class
           obj_pcl.probability = box.probability
-          obj_pcl.y_size = abs(box.ymax - box.ymin)
-          obj_pcl.x_size = abs(box.xmax - box.xmin)
+          obj_pcl.y_size = self.P_inv[1,1]*abs(box.ymax - box.ymin) + self.P_inv[1,2]  #convert to metres
+          obj_pcl.x_size = self.P_inv[0,0]*abs(box.xmax - box.xmin) + self.P_inv[1,2]
           
           self.pub.publish(obj_pcl)
       
