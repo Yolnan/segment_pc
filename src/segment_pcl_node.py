@@ -29,6 +29,7 @@ class pcl_node_handler:
       self.image_topic = depth_image_topic
       self.cam_info_sub = rospy.Subscriber(cam_info_topic, CameraInfo, self.cb_camera_info)
       self.pub = rospy.Publisher("segmented_pcl", obj_pointcloud, queue_size=1)
+      self.pub2 = rospy.Publisher("segmented_pcl/pcl", PointCloud2, queue_size=1)
       self.class_list = ["person", "chair", "tvmonitor", "bottle", "cell phone"]
       self.depth_acquired = False
       # bgr colors
@@ -142,21 +143,23 @@ class pcl_node_handler:
               points.append(pt) 
           
           # create pointcloud 
-          header = Header()
-          header.frame_id = "theia/front_camera_aligned_depth_to_color_frame"
-          fields = [PointField('x', 0, PointField.FLOAT32, 1),
-                    PointField('y', 4, PointField.FLOAT32, 1),
-                    PointField('z', 8, PointField.FLOAT32, 1),
-                    PointField('rgb', 12, PointField.UINT32, 1)]
-          pc2 = point_cloud2.create_cloud(header, fields, points)
-          obj_pcl = obj_pointcloud()
-          obj_pcl.pcl = pc2
-          obj_pcl.label = box.Class
-          obj_pcl.probability = box.probability
-          obj_pcl.y_size = abs(self.P_inv[1,1]*abs(box.ymax - box.ymin) + self.P_inv[1,2])  #convert to metres
-          obj_pcl.x_size = abs(self.P_inv[0,0]*abs(box.xmax - box.xmin) + self.P_inv[1,2])
-          
-          self.pub.publish(obj_pcl)
+          if (len(points)>0):
+            header = Header()
+            header.frame_id = "theia/front_camera_aligned_depth_to_color_frame"
+            fields = [PointField('x', 0, PointField.FLOAT32, 1),
+                      PointField('y', 4, PointField.FLOAT32, 1),
+                      PointField('z', 8, PointField.FLOAT32, 1),
+                      PointField('rgb', 12, PointField.UINT32, 1)]
+            pc2 = point_cloud2.create_cloud(header, fields, points)
+            obj_pcl = obj_pointcloud()
+            obj_pcl.pcl = pc2
+            obj_pcl.label = box.Class
+            obj_pcl.probability = box.probability
+            obj_pcl.y_size = abs(self.P_inv[1,1]*abs(box.ymax - box.ymin) + self.P_inv[1,2])  #convert to metres
+            obj_pcl.x_size = abs(self.P_inv[0,0]*abs(box.xmax - box.xmin) + self.P_inv[1,2])
+            
+            self.pub.publish(obj_pcl)
+            self.pub2.publish(obj_pcl.pcl)
       
       self.roi = BoundingBoxes()
       self.has_roi = False
