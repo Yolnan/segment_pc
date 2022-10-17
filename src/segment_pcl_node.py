@@ -145,7 +145,7 @@ class pcl_node_handler:
           # create pointcloud 
           if (len(points)>0):
             header = Header()
-            header.frame_id = "theia/front_camera_aligned_depth_to_color_frame"
+            header.frame_id = "camera_aligned_depth_to_color_frame"
             fields = [PointField('x', 0, PointField.FLOAT32, 1),
                       PointField('y', 4, PointField.FLOAT32, 1),
                       PointField('z', 8, PointField.FLOAT32, 1),
